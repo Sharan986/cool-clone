@@ -22,12 +22,10 @@ const Hero = () => {
         setLoadedVideos((prev) => prev + 1);
     }
 
-    const upcomingVideoIndex = (currentIndex % totalVideo) + 1;
-
     const handleMiniVideoClick = () => { 
         setHasClicked(true);
 
-        setcurrentIndex(upcomingVideoIndex);
+        setcurrentIndex((prevIndex) => (prevIndex % totalVideo) + 1);
     }
 
 
@@ -53,7 +51,7 @@ const Hero = () => {
             });
 
             gsap.from("#current-video", {
-                tranformOrigin: 'center center',
+                transformOrigin: 'center center',
                 scale: 0,
                 duration: 1.5,
                 ease: 'power1.inOut',
@@ -110,7 +108,7 @@ const Hero = () => {
             duration-500 ease-in hover:scale-100 hover:opacity-100'>
                 <video 
                     ref= {nextVidRef}
-                    src= {getVideoSrc(currentIndex + 1)}
+                    src={getVideoSrc((currentIndex % totalVideo) + 1)}
                     loop 
                     muted
                     id = "current-video"
@@ -122,7 +120,7 @@ const Hero = () => {
 
         <video 
         ref={nextVidRef}
-        src={getVideoSrc(upcomingVideoIndex)}
+        src={getVideoSrc(currentIndex)}
         loop
         muted
         id="next-video"
