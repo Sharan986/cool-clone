@@ -28,7 +28,7 @@ const Navbar = () => {
         else if(currentScrollY > lastScrollY){
             setIsNavVisible(false);
             navContainerRef.current.classList.add('floating-nav');
-        } else {
+        } else if(currentScrollY < lastScrollY){
             setIsNavVisible(true);
             navContainerRef.current.classList.add('floating-nav');
         }
@@ -41,7 +41,7 @@ const Navbar = () => {
         opacity: isNavVisible ? 1 : 0,
         duration:0.2,
       })
-    }, [third])
+    }, [isNavVisible])
     
 
 
@@ -73,7 +73,7 @@ const Navbar = () => {
                 <nav className='flex size-full items-center
                 justify-between p-4'>
                     <div className='flex items-center gap-7'>
-                        <img src="/img/logo.png" alt="logo" />
+                        <img src="/img/logo.png" alt="logo" className='w-10'/>
                         <Button
                             id="product-button"
                             title="Products"
@@ -85,8 +85,8 @@ const Navbar = () => {
 
                     <div className='flex h-full items-center'>
                         <div className='hidden md:block'>
-                            {navItems.map((item) => (
-                                <a key={item}
+                            {navItems.map((item, index) => (
+                                <a key={index}
                                     href={`#${item.toLowerCase()}`}
                                     className='nav-hover-btn'>
                                     {item}
